@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Hello World Button</title>
+</head>
+<body>
+  <div class="container">
+    <button id="helloBtn">Click Me</button>
+    <p id="responseText"></p>
+  </div>
+
+  <script>
+    const button = document.getElementById('helloBtn');
+
+    button.addEventListener('click', async function handleClick() {
+      button.disabled = true;
+
+      try {
+        const res = await fetch('/hello');
+        const data = await res.text();
+        document.getElementById('responseText').textContent = data;
+      } catch (error) {
+        document.getElementById('responseText').textContent = 'Error fetching data.';
+      }
+
+      button.removeEventListener('click', handleClick);
+    });
+  </script>
+</body>
+</html>
